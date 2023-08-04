@@ -1,40 +1,74 @@
 
-import { GET_FAIL,GET_REQURST,GET_SUCCESS } from './actiontype';
+import { GET_FAIL, GET_REQURST, GET_SUCCESS, POST_FAIL, POST_REQURST, POST_SUCCESS,DELETE_FAIL,DELETE_REQURST,DELETE_SUCCESS } from './actiontype';
 
 const intialvalue = {
-    data : [],
+    data: [],
     isLoding: false
 }
 
-function reducer(state=intialvalue, {type, payload}) {
+function reducer(state = intialvalue, { type, payload }) {
 
     switch (type) {
         case GET_REQURST:
-            return{
+            return {
                 ...state,
                 isLoding: true
             }
-        
+
         case GET_SUCCESS:
-            return{
+            return {
                 ...state,
                 data: payload,
-                isLoding:false
+                isLoding: false
             }
-            
+
         case GET_FAIL:
-            return{
+            return {
                 ...state,
-                isLoding:false
+                isLoding: false
             }
-         
-    
+        case POST_REQURST:
+            return {
+                ...state,
+                isLoding: true
+            }
+
+        case POST_SUCCESS:
+            return {
+                ...state,
+                data: [...state.data, payload],
+                isLoding: false
+            }
+        case POST_FAIL:
+            return {
+                ...state,
+                isLoding: false
+            }
+            case DELETE_FAIL:
+                return {
+                    ...state,
+                    isLoding: false
+                }
+
+                case DELETE_REQURST:
+                    return {
+                        ...state,
+                        isLoding: true
+                    }   
+              
+                    case DELETE_SUCCESS:
+                        return {
+                            ...state,
+                            data: state.data.filter((data)=> data.id !== payload ),
+                            isLoding: false
+                        }  
+
         default:
             return state;
-                
-    }    
-  
-  
+
+    }
+
+
 }
 
 export default reducer
